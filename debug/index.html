@@ -8,23 +8,73 @@
     <style>
         body { margin: 0; padding: 0; }
         html, body, #map { height: 100%; }
-    </style>
+        #fly{
+            position:absolute;
+            left:0;
+            top:10px;
+        }
+        #fitbounds{
+            position:absolute;
+            left:0;
+            top:40px;
+        }
+
+        #flyw8padding{
+            position:absolute;
+            left:0;
+            top:70px;
+        }
+
+        </style>
 </head>
 
 <body>
+
 <div id='map'></div>
+<button id="fly">Fly</button>
+<button id="flyw8padding">flyw8padding</button>
+<button id="fitbounds">fitbounds</button>
+
 
 <script src='../dist/mapbox-gl-dev.js'></script>
 <script src='../debug/access_token_generated.js'></script>
 <script>
 
-var map = window.map = new mapboxgl.Map({
-    container: 'map',
-    devtools: true,
-    zoom: 12.5,
-    center: [-122.4194, 37.7749],
-    hash: true,
-});
+       const  map = new mapboxgl.Map({
+            container: 'map',
+            zoom: 12.5,
+            center: [-122.4194, 37.7749],
+            hash: true,
+        });
+
+       map.showPadding = true;
+
+
+        document.getElementById('fly').addEventListener('click', () => {
+            // Fly to a random location
+            map.flyTo({
+                zoom:10,
+                center: [-120,40],
+                essential: true,
+                padding:{left:100,top:0,bottom:0,right:0}
+            });
+        });
+
+       document.getElementById('flyw8padding').addEventListener('click', () => {
+           // Fly to a random location
+           map.flyTo({
+               zoom:10,
+               center: [-120,40],
+               essential: true,
+               padding:{left:0,top:0,bottom:0,right:0}
+           });
+       });
+
+       document.getElementById('fitbounds').addEventListener('click', () => {
+           // Fly to a random location
+           map.fitBounds([[-120,40],[-119,41]],{padding:{left:200,top:0,bottom:0,right:0}});
+       });
+
 
 </script>
 </body>
